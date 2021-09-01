@@ -6,6 +6,7 @@ public abstract class CollectibleBase : MonoBehaviour
     protected abstract void Collect(Player player);
 
     [SerializeField] float _movementSpeed = 1;
+    protected float MovementSpeed => _movementSpeed;
 
     [SerializeField] ParticleSystem _collectParticles;
     [SerializeField] AudioClip _collectSound;

@@ -12,8 +12,13 @@ public class SpeedIncrease : CollectibleBase
         TankController controller = player.GetComponent<TankController>();
         if(controller != null)
         {
-            // TODO: uncomment below and solve error!
-            // controller.MaxSpeed += _speedAmount;
+            controller.MaxSpeed += _speedAmount;
         }
+    }
+
+    protected override void Movement(Rigidbody rb)
+    {
+        // calculate rotation
+        Quaternion turnOffset = Quaternion.Euler(MovementSpeed, MovementSpeed, MovementSpeed);
     }
 }

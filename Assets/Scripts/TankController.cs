@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class TankController : MonoBehaviour
 {
-    [SerializeField] float _moveSpeed = .25f;
+    [SerializeField] float _moveSpeed = 0.25f;
     [SerializeField] float _turnSpeed = 2f;
+    [SerializeField] float _maxSpeed = 0.25f;
+
+    public float MaxSpeed
+    {
+        get => _maxSpeed;
+        set => _maxSpeed = value;
+    }
 
     Rigidbody _rb = null;
 
