@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(TankController))]
 public class Player : MonoBehaviour
 {
     [SerializeField] int _maxHealth = 3;
     int _currentHealth;
+    int _currentTreasure;
+    [SerializeField] UIWriter _ui;
 
     TankController _tankController;
 
@@ -38,5 +41,12 @@ public class Player : MonoBehaviour
     public void Kill()
     {
         gameObject.SetActive(false);
+    }
+
+    public void IncreaseTreasure(int amount)
+    {
+        _currentTreasure += amount;
+        Debug.Log("Player's treasure: " + _currentTreasure);
+        _ui.SetTreasureUI(_currentTreasure);
     }
 }
