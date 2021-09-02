@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &767159314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5693202103812518192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be26f57417e8124490a4f84536c3b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerupDuration: 5
+  _powerupParticles: {fileID: 8461029957466806365}
+  _powerupSound: {fileID: 8300000, guid: 78eec58317139ad49be27ade9baa97bf, type: 3}
+  _powerUpMaterial: {fileID: 2100000, guid: b2b7a39e225c8184ebd7bc4705582e03, type: 2}
+--- !u!1001 &8461029957441599418
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 260173796, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_Name
+      value: PowerUpParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 260173798, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d3dbe51f21934a44b81ffaf7aead6eb, type: 2}
+    - target: {fileID: 260173799, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 260173799, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.9510722
+      objectReference: {fileID: 0}
+    - target: {fileID: 260173799, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590464, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209120506512590470, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f72ffa29f76445e45942ab589f402549, type: 2}
+    - target: {fileID: 4209120506512590474, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+      propertyPath: m_Name
+      value: PowerUp
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4209120506512590475, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+--- !u!1 &5693202103812518192 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4209120506512590474, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+  m_PrefabInstance: {fileID: 8461029957441599418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8461029957466806365 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 260173799, guid: 2eabac4b69096b04a92faa2fa4e854b3, type: 3}
+  m_PrefabInstance: {fileID: 8461029957441599418}
+  m_PrefabAsset: {fileID: 0}

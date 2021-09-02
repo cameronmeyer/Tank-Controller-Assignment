@@ -321,7 +321,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 0.15
   _turnSpeed: 2
-  _maxSpeed: 0.25
 --- !u!114 &4953288105116543785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 3
+  _ui: {fileID: 0}
 --- !u!1 &4953288105683210906
 GameObject:
   m_ObjectHideFlags: 0
