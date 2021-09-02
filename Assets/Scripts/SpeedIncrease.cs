@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpeedIncrease : CollectibleBase
 {
     [SerializeField] float _speedAmount = 5;
+    //[SerializeField] ParticleSystem _speedParticles;
 
     protected override void Collect(Player player)
     {
@@ -12,7 +13,7 @@ public class SpeedIncrease : CollectibleBase
         TankController controller = player.GetComponent<TankController>();
         if(controller != null)
         {
-            controller.MaxSpeed += _speedAmount;
+            controller.MoveSpeed += _speedAmount;
         }
     }
 

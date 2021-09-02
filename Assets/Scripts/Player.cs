@@ -38,8 +38,5 @@ public class Player : MonoBehaviour
     public void Kill()
     {
         gameObject.SetActive(false);
-        // TODO: add particles and sound here
-        // play particles
-        // play sounds
     }
 }
