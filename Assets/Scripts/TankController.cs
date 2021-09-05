@@ -12,6 +12,9 @@ public class TankController : MonoBehaviour
     [SerializeField] GameObject _projectile;
     [SerializeField] float _projectileMinSpeed = 3f;
     [SerializeField] float _projectileFullChargeTime = 2f;
+    private bool _chargingFire = false;
+    private float _chargeStartTime = 0f;
+    private float _chargeTime = 0f;
 
     [SerializeField] GameObject _base;
     [SerializeField] GameObject _turret;
@@ -52,61 +55,39 @@ public class TankController : MonoBehaviour
 
             _base.transform.rotation = Quaternion.LookRotation(move);
         }
-        
-        /*
-        // calculate the move amount
-        float moveAmountThisFrame = Input.GetAxis("Vertical") * _moveSpeed;
-        // create a vector from amount and direction
-        Vector3 moveOffset = transform.forward * moveAmountThisFrame;
-        // apply vector to the rigidbody
-        _rb.MovePosition(_rb.position + moveOffset);
-        // technically adjusting vector is more accurate! (but more complex)
-        */
     }
 
     private Vector3 temp;
 
     public void TurnTurret()
     {
-        float distanceToPlayer = Vector3.Distance(Camera.main.transform.position, _turretPivot.transform.position) - .9f; // - 1.6f;
-        Vector3 cameraPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distanceToPlayer);
-        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(cameraPoint);
-        
-        Vector3 localPoint = transform.InverseTransformPoint(worldPoint);
+        float distanceToTank = Vector3.Distance(Camera.main.transform.position, _turret.transform.position); 
+        Vector3 cameraPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distanceToTank);   
+        Vector3 localPoint = transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(cameraPoint));
+        localPoint.y = _turret.transform.localPosition.y;
 
-        
         _turretPivot.transform.rotation = Quaternion.LookRotation(localPoint, Vector3.up);
-        //_turretPivot.transform.Rotate(-_turretPivot.transform.rotation.eulerAngles.x, 0, -_turretPivot.transform.rotation.eulerAngles.z, Space.World);
-        //_turretPivot.transform.rotation.eulerAngles = new Vector3(0, _turretPivot.transform.rotation.eulerAngles.y, 0);
-
-
-        //Debug gizmo--remove later
-        temp = transform.TransformPoint(localPoint);
-        Debug.Log(temp);
-
-        /*
-        // calculate the turn amount
-        float turnAmountThisFrame = Input.GetAxis("Horizontal") * _turnSpeed;
-        // create a Quaternion from amount and direction (x,y,z)
-        Quaternion turnOffset = Quaternion.Euler(0, turnAmountThisFrame, 0);
-        // apply quaternion to the rigidbody
-        _rb.MoveRotation(_rb.rotation * turnOffset);
-        */
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(temp, .1f);
     }
 
     public void Fire()
     {
-        // TODO: convert this into a charge shot mechanic. get time button first held, then if held for _projectileFullChargeTime,
-        // launch projectile at max speed
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
         {
-            Debug.Log("space key was pressed");
-            Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
+            _chargingFire = true;
+            _chargeStartTime = Time.time;
+            _chargeTime = Time.time;
+        }
+        else if (_chargingFire && (Input.GetKeyUp("space") || Input.GetMouseButtonUp(0)))
+        {
+            _chargingFire = false;
+            _chargeTime = Time.time;
+
+            // calculate the % of full charge on the projectile
+            float chargeAmount = (_chargeTime - _chargeStartTime) / ((_chargeStartTime + _projectileFullChargeTime) - _chargeStartTime);
+            chargeAmount = Mathf.Clamp(chargeAmount, 0, 1);
+
+            GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
+            projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount);
         }
     }
 
