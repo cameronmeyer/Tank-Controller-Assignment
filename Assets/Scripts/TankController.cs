@@ -88,6 +88,8 @@ public class TankController : MonoBehaviour
 
             GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
             projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount);
+
+            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
         }
     }
 
