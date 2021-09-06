@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231476671}
   m_Layer: 0
-  m_Name: Pivot Point
+  m_Name: Turret Pivot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4953288104752432183}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.694, y: -0.18, z: 0}
+  m_LocalPosition: {x: 0.694, y: -0.18, z: 0.14}
   m_LocalScale: {x: 0.46179903, y: 0.57787, z: 1.5576507}
   m_Children: []
   m_Father: {fileID: 4953288106226916525}
@@ -168,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4953288104976118954}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.07, z: -0.19}
+  m_LocalPosition: {x: 0, y: 0.07, z: -0.05}
   m_LocalScale: {x: 0.8793662, y: 0.48290083, z: 0.88479}
   m_Children: []
   m_Father: {fileID: 4953288106226916525}
@@ -249,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4953288105023766694}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00999999, z: 0.48000023}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4}
   m_LocalScale: {x: 0.41820297, y: 0.33804992, z: 1.1994224}
   m_Children:
   - {fileID: 1016522161}
@@ -352,8 +352,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.83, y: 1, z: 1.61463}
-  m_Center: {x: 0, y: 0, z: 0.043212414}
+  m_Size: {x: 1.83, y: 1.05, z: 1.6}
+  m_Center: {x: 0, y: 0.08, z: 0.01}
 --- !u!54 &4953288105116543790
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -382,13 +382,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509303ee69e48a841ac32daa0fd2a2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 0.15
+  _moveSpeed: 0.1
   _turnSpeed: 2
   _projectileSpawn: {fileID: 1016522160}
   _projectile: {fileID: 838031410608327462, guid: bab2afc2b7164c344b09f803c98ee272, type: 3}
-  _projectileMinSpeed: 3
-  _projectileFullChargeTime: 2
-  _base: {fileID: 0}
+  _projectileMinSpeed: 8
+  _projectileMaxSpeed: 20
+  _projectileFullChargeTime: 1.1
+  _projectileScaleFactor: 4.2
+  _base: {fileID: 4953288106226916530}
   _turret: {fileID: 4953288105023766694}
   _turretPivot: {fileID: 231476670}
 --- !u!114 &4953288105116543785
@@ -431,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4953288105683210906}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.687, y: -0.18, z: 0}
+  m_LocalPosition: {x: -0.687, y: -0.18, z: 0.14}
   m_LocalScale: {x: 0.46179903, y: 0.57787, z: 1.5576507}
   m_Children: []
   m_Father: {fileID: 4953288106226916525}
@@ -510,7 +512,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4953288106226916530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4953288104976118949}

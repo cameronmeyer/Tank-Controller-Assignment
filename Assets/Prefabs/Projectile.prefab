@@ -126,10 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3dfd217ea835f4cb15d78483a45705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
-  _maxSpeed: 10
+  _speed: 6
+  _maxSpeed: 15
   _impactParticles: {fileID: 1618196981287035293}
   _impactSound: {fileID: 8300000, guid: 8dbbdf8248d11a14b8cae526debbfffd, type: 3}
+  _muzzleFlashParticles: {fileID: 0}
+  _projectileFire: {fileID: 8300000, guid: 8efc608561c84284490964c102d076d1, type: 3}
 --- !u!1 &1202292824569189364
 GameObject:
   m_ObjectHideFlags: 0

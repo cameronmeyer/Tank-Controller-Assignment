@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour
 {
-    [SerializeField] float _speed = 3f;
-    [SerializeField] float _maxSpeed = 10f;
+    private float _speed;
+    //[SerializeField] float _minSpeed = 3f;
+    //[SerializeField] float _maxSpeed = 10f;
 
     [SerializeField] ParticleSystem _impactParticles;
     [SerializeField] AudioClip _impactSound;
 
+    [SerializeField] ParticleSystem _muzzleFlashParticles;
+    [SerializeField] AudioClip _projectileFire;
+
     public float Speed
     {
         get => _speed;
-        set => _speed = Mathf.Clamp(value, 1f, _maxSpeed);
+        set => _speed = value;
+    }
+
+    private void Awake()
+    {
+        AudioHelper.PlayClip2D(_projectileFire, 1f);
     }
 
     private void FixedUpdate()

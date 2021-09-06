@@ -11,7 +11,9 @@ public class TankController : MonoBehaviour
     [SerializeField] GameObject _projectileSpawn;
     [SerializeField] GameObject _projectile;
     [SerializeField] float _projectileMinSpeed = 3f;
+    [SerializeField] float _projectileMaxSpeed = 10f;
     [SerializeField] float _projectileFullChargeTime = 2f;
+    [SerializeField] float _projectileScaleFactor = 1f;
     private bool _chargingFire = false;
     private float _chargeStartTime = 0f;
     private float _chargeTime = 0f;
@@ -86,8 +88,14 @@ public class TankController : MonoBehaviour
             float chargeAmount = (_chargeTime - _chargeStartTime) / ((_chargeStartTime + _projectileFullChargeTime) - _chargeStartTime);
             chargeAmount = Mathf.Clamp(chargeAmount, 0, 1);
 
+            // calculate projectile speed based on chargeAmount
+            // (remapping from {0,1} range to {minSpeed, maxSpeed} range)
+            float projectileSpeed = _projectileMinSpeed + chargeAmount * (_projectileMaxSpeed - _projectileMinSpeed);
+
             GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
-            projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount);
+            PlayerProjectile pProjectile = projectile.GetComponent<PlayerProjectile>();
+            projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount * _projectileScaleFactor);
+            pProjectile.Speed = projectileSpeed;
 
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
         }
