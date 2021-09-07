@@ -17,10 +17,13 @@ public class TankController : MonoBehaviour
     private bool _chargingFire = false;
     private float _chargeStartTime = 0f;
     private float _chargeTime = 0f;
+    [SerializeField] ParticleSystem _muzzleFlash;
 
     [SerializeField] GameObject _base;
     [SerializeField] GameObject _turret;
     [SerializeField] GameObject _turretPivot;
+
+    [SerializeField] GameObject _ground;
 
     public float MoveSpeed
     {
@@ -97,7 +100,10 @@ public class TankController : MonoBehaviour
             projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount * _projectileScaleFactor);
             pProjectile.Speed = projectileSpeed;
 
+            _muzzleFlash.Play();
+
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
+            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
         }
     }
 

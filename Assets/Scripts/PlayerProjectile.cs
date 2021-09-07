@@ -5,13 +5,8 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour
 {
     private float _speed;
-    //[SerializeField] float _minSpeed = 3f;
-    //[SerializeField] float _maxSpeed = 10f;
-
     [SerializeField] ParticleSystem _impactParticles;
     [SerializeField] AudioClip _impactSound;
-
-    [SerializeField] ParticleSystem _muzzleFlashParticles;
     [SerializeField] AudioClip _projectileFire;
 
     public float Speed
