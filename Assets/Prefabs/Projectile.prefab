@@ -128,8 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _impactParticles: {fileID: 1618196981287035293}
   _impactSound: {fileID: 8300000, guid: 8dbbdf8248d11a14b8cae526debbfffd, type: 3}
-  _muzzleFlashParticles: {fileID: 0}
   _projectileFire: {fileID: 8300000, guid: 8efc608561c84284490964c102d076d1, type: 3}
+  _shakeIntensity: 2
+  _shakeTimer: 0.1
 --- !u!1 &1202292824569189364
 GameObject:
   m_ObjectHideFlags: 0

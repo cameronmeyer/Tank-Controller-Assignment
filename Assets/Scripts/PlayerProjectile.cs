@@ -9,6 +9,10 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] AudioClip _impactSound;
     [SerializeField] AudioClip _projectileFire;
 
+    private CinemachineShake _cs;
+    [SerializeField] float _shakeIntensity = 3f;
+    [SerializeField] float _shakeTimer = 0.1f;
+
     public float Speed
     {
         get => _speed;
@@ -18,6 +22,7 @@ public class PlayerProjectile : MonoBehaviour
     private void Awake()
     {
         AudioHelper.PlayClip2D(_projectileFire, 1f);
+        _cs = Camera.main.GetComponent<CinemachineShake>();
     }
 
     private void FixedUpdate()
@@ -52,5 +57,7 @@ public class PlayerProjectile : MonoBehaviour
         {
             AudioHelper.PlayClip2D(_impactSound, 1f);
         }
+
+        _cs.Shake(_shakeIntensity, _shakeTimer);
     }
 }
