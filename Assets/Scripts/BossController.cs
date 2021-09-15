@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
+    [SerializeField] Player _player;
+
     [SerializeField] float _moveSpeed = 0.25f;
 
     [SerializeField] GameObject _projectileSpawn;
@@ -39,8 +41,6 @@ public class BossController : MonoBehaviour
 
     private void Update()
     {
-        Exit();
-        Reset();
         Fire();
     }
 
@@ -65,12 +65,7 @@ public class BossController : MonoBehaviour
 
     public void TurnTurret()
     {
-        float distanceToTank = Vector3.Distance(Camera.main.transform.position, _turret.transform.position); 
-        Vector3 cameraPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distanceToTank);   
-        Vector3 localPoint = transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(cameraPoint));
-        localPoint.y = _turret.transform.localPosition.y;
-
-        _turretPivot.transform.rotation = Quaternion.LookRotation(localPoint, Vector3.up);
+        _turretPivot.transform.rotation = Quaternion.LookRotation((_player.transform.position - transform.position), Vector3.up);
     }
 
     public void Fire()
@@ -103,24 +98,6 @@ public class BossController : MonoBehaviour
 
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
-        }
-    }
-
-    public void Exit()
-    {
-        if (Input.GetKeyDown("escape"))
-        {
-            Debug.Log("Quitting Game");
-            Application.Quit();
-        }
-    }
-
-    public void Reset()
-    {
-        if(Input.GetKeyDown("backspace"))
-        {
-            Debug.Log("Reset Scene");
-            SceneManager.LoadScene("Sandbox");
         }
     }
 }

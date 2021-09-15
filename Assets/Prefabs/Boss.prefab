@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e165fb2e14837d4db5f8f0d38065046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
   _moveSpeed: 0.25
   _projectileSpawn: {fileID: 2420614150380848902}
   _projectile: {fileID: 838031410608327462, guid: bab2afc2b7164c344b09f803c98ee272, type: 3}
