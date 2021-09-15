@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TankController : MonoBehaviour
+public class BossController : MonoBehaviour
 {
     [SerializeField] float _moveSpeed = 0.25f;
 

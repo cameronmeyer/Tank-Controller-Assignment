@@ -20,7 +20,7 @@ public class InvincibilityPowerUp : PowerUpBase
             _playerRenderers[i].material = _powerUpMaterial;
         }
 
-        player.PowerUp();
+        player.GetComponent<Health>().PowerUp();
     }
 
     protected override void PowerDown(Player player)
@@ -31,6 +31,6 @@ public class InvincibilityPowerUp : PowerUpBase
             _playerRenderers[i].material = _playerMats[i];
         }
 
-        player.PowerDown();
+        player.GetComponent<Health>().PowerDown();
     }
 }

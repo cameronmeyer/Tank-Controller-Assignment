@@ -7,10 +7,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(TankController))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] int _maxHealth = 3;
-    int _currentHealth;
     int _currentTreasure;
-    bool _isPoweredUp = false;
     [SerializeField] UIWriter _ui;
 
     TankController _tankController;
@@ -22,38 +19,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        _currentHealth = _maxHealth;
         refreshUI();
-    }
-
-    public void IncreaseHealth(int amount)
-    {
-        _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
-        refreshUI();
-        Debug.Log("Player's health: " + _currentHealth);
-    }
-    public void DecreaseHealth(int amount)
-    {
-        if(!_isPoweredUp)
-        {
-            _currentHealth -= amount;
-            refreshUI();
-            Debug.Log("Player's health: " + _currentHealth);
-            if (_currentHealth <= 0)
-            {
-                Kill();
-            }
-        }
-    }
-
-    public void PowerUp()
-    {
-        _isPoweredUp = true;
-    }
-
-    public void PowerDown()
-    {
-        _isPoweredUp = false;
     }
 
     public void Kill()
@@ -77,7 +43,6 @@ public class Player : MonoBehaviour
 
     public void refreshUI()
     {
-        _ui.SetHealthUI(_currentHealth);
         _ui.SetTreasureUI(_currentTreasure);
     }
 
