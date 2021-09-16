@@ -26,6 +26,13 @@ public class BossController : MonoBehaviour
 
     [SerializeField] GameObject _ground;
 
+    [SerializeField] GameObject _patrolPositionsObj;
+    private List<Vector3> _patrolPositions;
+    private float _timeToNextMovement;
+    private Vector3 _nextLocation;
+    private bool _isPatroling = false;
+    private bool _isRushing = false;
+
     public float MoveSpeed
     {
         get => _moveSpeed;
@@ -39,6 +46,16 @@ public class BossController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        _patrolPositions = new List<Vector3>();
+        foreach(Transform child in _patrolPositionsObj.transform)
+        {
+            _patrolPositions.Add(child.position);
+        }
+        
+    }
+
     private void Update()
     {
         Fire();
@@ -46,29 +63,67 @@ public class BossController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveTank();
+        Movement();
         TurnTurret();
     }
 
-    public void MoveTank()
+    private void Movement()
     {
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        // make sure it's time to do a new movement
+        if(Time.time >= _timeToNextMovement)
         {
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            transform.position += move * _moveSpeed;
+            _isPatroling = false;
+            _isRushing = false;
 
-            _base.transform.rotation = Quaternion.LookRotation(move);
+            // determine whether we will be idle (0), patroling (1), or rushing (2)
+            int movementAction = Random.Range(0, 2);
+
+            switch (movementAction)
+            {
+                case 0:
+                    _nextLocation = transform.position;
+                    Debug.Log("Idle Now");
+                    break;
+                case 1:
+                    _nextLocation = _patrolPositions[Random.Range(0, _patrolPositions.Count)];
+                    _isPatroling = true;
+                    Debug.Log("Patroling Now");
+                    break;
+                case 2:
+                    _nextLocation = _player.transform.position;
+                    _isRushing = true;
+                    Debug.Log("Rushing Now");
+                    break;
+            }
+
+            // randomly pick how long we will perform the movement action for
+            _timeToNextMovement = Time.time + Random.Range(1.2f, 3f);
         }
+
+        MoveTank();
     }
 
-    private Vector3 temp;
+    private void MoveTank()
+    {
+        Vector3 move = _nextLocation - transform.position;
 
-    public void TurnTurret()
+        Debug.Log(move);
+
+        if(move.magnitude <= 0.1f) { return; } // don't move if we're already basically in position
+
+        move.Normalize();
+
+        transform.position += move * _moveSpeed;
+
+        _base.transform.rotation = Quaternion.LookRotation(move);
+    }
+
+    private void TurnTurret()
     {
         _turretPivot.transform.rotation = Quaternion.LookRotation((_player.transform.position - transform.position), Vector3.up);
     }
 
-    public void Fire()
+    private void Fire()
     {
         if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
         {

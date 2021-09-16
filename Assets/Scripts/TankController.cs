@@ -120,7 +120,7 @@ public class TankController : MonoBehaviour
         if(Input.GetKeyDown("backspace"))
         {
             Debug.Log("Reset Scene");
-            SceneManager.LoadScene("Sandbox");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
