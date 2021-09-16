@@ -124,7 +124,7 @@ public class BossController : MonoBehaviour
     }
 
     private void Fire()
-    {
+    {/*
         if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
         {
             _chargingFire = true;
@@ -153,6 +153,6 @@ public class BossController : MonoBehaviour
 
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
-        }
+        }*/
     }
 }

@@ -40,6 +40,12 @@ public class PlayerProjectile : MonoBehaviour
             return;
         }
 
+        IDamageable damageableObj = other.gameObject.GetComponent<IDamageable>();
+        if(damageableObj != null)
+        {
+            damageableObj.Damage(1);
+        }
+
         ImpactFeedback(Quaternion.LookRotation(other.contacts[0].normal));
 
         Destroy(gameObject);

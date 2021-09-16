@@ -5534,6 +5534,7 @@ GameObject:
   - component: {fileID: 4953288105116543790}
   - component: {fileID: 4953288105116543784}
   - component: {fileID: 4953288105116543785}
+  - component: {fileID: 1156230666}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -5599,7 +5600,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 0.1
-  _turnSpeed: 2
   _projectileSpawn: {fileID: 1016522160}
   _projectile: {fileID: 838031410608327462, guid: bab2afc2b7164c344b09f803c98ee272, type: 3}
   _projectileMinSpeed: 8
@@ -5621,6 +5621,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7deae910b21a2142adfc1132501442e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ui: {fileID: 0}
+--- !u!114 &1156230666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4953288105116543789}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc47a63e240f2534495e1dc0377d7f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 3

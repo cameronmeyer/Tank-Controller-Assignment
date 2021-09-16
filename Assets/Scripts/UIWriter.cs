@@ -5,12 +5,18 @@ using UnityEngine.UI;
 
 public class UIWriter : MonoBehaviour
 {
-    [SerializeField] Text _healthText;
+    [SerializeField] Text _playerHealthText;
+    [SerializeField] Text _bossHealthText;
     [SerializeField] Text _treasureText;
 
-    public void SetHealthUI(int amount)
+    public void SetPlayerHealthUI(int amount)
     {
-        _healthText.text = "Health: " + amount + "HP";
+        _playerHealthText.text = "Player HP: " + amount + "HP";
+    }
+
+    public void SetBossHealthUI(int amount)
+    {
+        _bossHealthText.text = "Boss HP: " + amount + "HP";
     }
 
     public void SetTreasureUI(int amount)

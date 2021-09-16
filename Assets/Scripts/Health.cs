@@ -15,11 +15,15 @@ public class Health : MonoBehaviour, IDamageable
     {
         _isPlayer = this.GetComponent(typeof(Player)) != null;
         _currentHealth = _maxHealth;
+
+        refreshUI();
     }
 
     public void refreshUI()
     {
-        _ui.SetHealthUI(_currentHealth);
+        if (_isPlayer) { _ui.SetPlayerHealthUI(_currentHealth); }
+        else { _ui.SetBossHealthUI(_currentHealth); }
+        
     }
 
     public void Kill()
