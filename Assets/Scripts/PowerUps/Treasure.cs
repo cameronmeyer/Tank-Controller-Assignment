@@ -6,6 +6,6 @@ public class Treasure : CollectibleBase
 
     protected override void Collect(Player player)
     {
-        player.IncreaseTreasure(_treasureAdded);
+        //player.IncreaseTreasure(_treasureAdded);
     }
 }

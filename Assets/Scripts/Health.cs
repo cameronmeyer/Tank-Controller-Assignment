@@ -14,6 +14,7 @@ public class Health : MonoBehaviour, IDamageable
     void Start()
     {
         _isPlayer = this.GetComponent(typeof(Player)) != null;
+        Debug.Log(gameObject.name + " is player: " + _isPlayer);
         _currentHealth = _maxHealth;
 
         refreshUI();
@@ -21,6 +22,8 @@ public class Health : MonoBehaviour, IDamageable
 
     public void refreshUI()
     {
+        Debug.Log("Is player?" + _isPlayer);
+
         if (_isPlayer) { _ui.SetPlayerHealthUI(_currentHealth); }
         else { _ui.SetBossHealthUI(_currentHealth); }
         
@@ -41,7 +44,7 @@ public class Health : MonoBehaviour, IDamageable
 
     public void Damage(int damage)
     {
-        if (!_isPoweredUp)
+        if (!_isPlayer || (_isPlayer &&!_isPoweredUp))
         {
             _currentHealth -= damage;
             refreshUI();

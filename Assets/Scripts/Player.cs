@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(TankController))]
 public class Player : MonoBehaviour
 {
-    int _currentTreasure;
+    //int _currentTreasure;
     [SerializeField] UIWriter _ui;
 
     TankController _tankController;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        refreshUI();
+        //refreshUI();
     }
 
     public void Kill()
@@ -35,21 +35,22 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void IncreaseTreasure(int amount)
+    /*public void IncreaseTreasure(int amount)
     {
         _currentTreasure += amount;
         refreshUI();
         Debug.Log("Player's treasure: " + _currentTreasure);
-    }
+    }*/
 
-    public void refreshUI()
+    /*public void refreshUI()
     {
         _ui.SetTreasureUI(_currentTreasure);
-    }
+    }*/
 
     IEnumerator Reset()
     {
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("Sandbox");
+        Debug.Log("Reset Scene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -7,7 +7,7 @@ public class UIWriter : MonoBehaviour
 {
     [SerializeField] Text _playerHealthText;
     [SerializeField] Text _bossHealthText;
-    [SerializeField] Text _treasureText;
+    //[SerializeField] Text _treasureText;
 
     public void SetPlayerHealthUI(int amount)
     {
@@ -19,8 +19,8 @@ public class UIWriter : MonoBehaviour
         _bossHealthText.text = "Boss HP: " + amount + "HP";
     }
 
-    public void SetTreasureUI(int amount)
+    /*public void SetTreasureUI(int amount)
     {
         _treasureText.text = "Treasure: $" + amount;
-    }
+    }*/
 }

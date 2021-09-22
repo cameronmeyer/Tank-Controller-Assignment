@@ -107,7 +107,7 @@ public class BossController : MonoBehaviour
     {
         Vector3 move = _nextLocation - transform.position;
 
-        Debug.Log(move);
+        //Debug.Log(move);
 
         if(move.magnitude <= 0.1f) { return; } // don't move if we're already basically in position
 

@@ -29,7 +29,8 @@ public class Boss : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("Boss collide with player");
+        Debug.Log("Boss collide with " + other.gameObject.name);
+
         IDamageable damageableObj = other.gameObject.GetComponent<IDamageable>();
         if (damageableObj != null)
         {

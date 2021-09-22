@@ -44,6 +44,7 @@ public class PlayerProjectile : MonoBehaviour
         if(damageableObj != null)
         {
             damageableObj.Damage(1);
+            _cs.Shake(_shakeIntensity, _shakeTimer); // Only shake screen if we hit an enemy
         }
 
         ImpactFeedback(Quaternion.LookRotation(other.contacts[0].normal));
@@ -63,7 +64,5 @@ public class PlayerProjectile : MonoBehaviour
         {
             AudioHelper.PlayClip2D(_impactSound, 1f);
         }
-
-        _cs.Shake(_shakeIntensity, _shakeTimer);
     }
 }
