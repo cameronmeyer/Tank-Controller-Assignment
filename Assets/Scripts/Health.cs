@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Health : MonoBehaviour, IDamageable
 {
@@ -11,23 +12,26 @@ public class Health : MonoBehaviour, IDamageable
 
     [SerializeField] UIWriter _ui;
 
+    public event Action<int> HealthUpdate;
+
     void Start()
     {
         _isPlayer = this.GetComponent(typeof(Player)) != null;
         Debug.Log(gameObject.name + " is player: " + _isPlayer);
         _currentHealth = _maxHealth;
 
-        refreshUI();
+        //refreshUI();
+        HealthUpdate?.Invoke(_currentHealth);
     }
 
-    public void refreshUI()
+    /*public void refreshUI()
     {
         Debug.Log("Is player?" + _isPlayer);
 
         if (_isPlayer) { _ui.SetPlayerHealthUI(_currentHealth); }
         else { _ui.SetBossHealthUI(_currentHealth); }
         
-    }
+    }*/
 
     public void Kill()
     {
@@ -38,7 +42,7 @@ public class Health : MonoBehaviour, IDamageable
     public void IncreaseHealth(int amount)
     {
         _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
-        refreshUI();
+        //refreshUI();
         Debug.Log("Player's health: " + _currentHealth);
     }
 
@@ -47,7 +51,8 @@ public class Health : MonoBehaviour, IDamageable
         if (!_isPlayer || (_isPlayer &&!_isPoweredUp))
         {
             _currentHealth -= damage;
-            refreshUI();
+            HealthUpdate?.Invoke(_currentHealth);
+            //refreshUI();
             Debug.Log("Player's health: " + _currentHealth);
             if (_currentHealth <= 0)
             {

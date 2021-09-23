@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerProjectile : MonoBehaviour
 {
+    private Rigidbody _rb;
     private float _speed;
     [SerializeField] ParticleSystem _impactParticles;
     [SerializeField] AudioClip _impactSound;
@@ -23,11 +25,19 @@ public class PlayerProjectile : MonoBehaviour
     {
         AudioHelper.PlayClip2D(_projectileFire, 1f);
         _cs = Camera.main.GetComponent<CinemachineShake>();
+        _rb = GetComponent<Rigidbody>();
+        _rb.useGravity = false;
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * _speed * Time.fixedDeltaTime);
+        Move();
+    }
+
+    protected void Move()
+    {
+        Vector3 moveOffset = transform.TransformDirection(Vector3.forward) * _speed * Time.fixedDeltaTime;
+        _rb.MovePosition(_rb.position + moveOffset);
     }
 
     void OnCollisionEnter(Collision other)
