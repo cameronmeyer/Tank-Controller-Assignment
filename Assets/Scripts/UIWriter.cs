@@ -8,8 +8,14 @@ public class UIWriter : MonoBehaviour
     [SerializeField] Health _playerHealth;
     [SerializeField] Health _bossHealth;
     [SerializeField] Text _playerHealthText;
+    [SerializeField] Slider _playerHealthBar;
     [SerializeField] Text _bossHealthText;
     //[SerializeField] Text _treasureText;
+
+    private void Awake()
+    {
+        _playerHealthBar.maxValue = _playerHealth.MaxHealth;
+    }
 
     private void OnEnable()
     {
@@ -35,7 +41,8 @@ public class UIWriter : MonoBehaviour
 
     private void SetPlayerHealthUI(int amount)
     {
-        _playerHealthText.text = "Player HP: " + amount + "HP";
+        //_playerHealthText.text = "Player HP: " + amount + "HP";
+        _playerHealthBar.value = amount;
     }
 
     private void SetBossHealthUI(int amount)
