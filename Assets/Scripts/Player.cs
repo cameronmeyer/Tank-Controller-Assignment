@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         _tankController.enabled = false;
         gameObject.GetComponent<Collider>().enabled = false;
         gameObject.GetComponent<Rigidbody>().detectCollisions = false;
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
         MeshRenderer[] tankArt = gameObject.GetComponentsInChildren<MeshRenderer>();
 
         foreach(MeshRenderer mr in tankArt)

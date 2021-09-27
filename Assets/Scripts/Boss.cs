@@ -6,6 +6,9 @@ public class Boss : MonoBehaviour
 {
     BossController _bossController;
 
+    [SerializeField] GameObject _cover;
+
+    [SerializeField] ParticleSystem _explosion;
     [SerializeField] AudioClip _bossDeathSound;
 
     private void Awake()
@@ -15,10 +18,16 @@ public class Boss : MonoBehaviour
 
     public void Kill()
     {
+        // Spawn explosion particles
+        ParticleSystem deathParticles = Instantiate<ParticleSystem>(_explosion, _cover.transform);
+        deathParticles.Play();
+
         AudioHelper.PlayClip2D(_bossDeathSound, 1f);
 
         _bossController.enabled = false;
         gameObject.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Rigidbody>().detectCollisions = false;
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
         MeshRenderer[] tankArt = gameObject.GetComponentsInChildren<MeshRenderer>();
 
         foreach (MeshRenderer mr in tankArt)
