@@ -12,6 +12,7 @@ public class Health : MonoBehaviour, IDamageable
 
     [SerializeField] UIWriter _ui;
 
+    public float CurrentHealth { get => _currentHealth; }
     public float MaxHealth { get => _maxHealth; }
 
     public event Action<int> HealthUpdate;
