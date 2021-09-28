@@ -10,6 +10,7 @@ public class UIWriter : MonoBehaviour
     [SerializeField] Text _playerHealthText;
     [SerializeField] Slider _playerHealthBar;
     [SerializeField] Text _bossHealthText;
+    [SerializeField] float _lerpDuration;
     //[SerializeField] Text _treasureText;
 
     private void Awake()
@@ -31,7 +32,8 @@ public class UIWriter : MonoBehaviour
 
     private void OnPlayerHealthUpdate(int amount)
     {
-        SetPlayerHealthUI(amount);
+        //SetPlayerHealthUI(amount);
+        StartCoroutine(SetPlayerHealthUI(amount));
     }
 
     private void OnBossHealthUpdate(int amount)
@@ -39,10 +41,21 @@ public class UIWriter : MonoBehaviour
         SetBossHealthUI(amount);
     }
 
-    private void SetPlayerHealthUI(int amount)
+    private IEnumerator SetPlayerHealthUI(int amount)
     {
         //_playerHealthText.text = "Player HP: " + amount + "HP";
-        _playerHealthBar.value = amount;
+        //_playerHealthBar.value = amount;
+
+        float elapsedTime = 0;
+        float initValue = _playerHealthBar.value;
+        //float time = Time.time + _lerpDuration;
+
+        while(elapsedTime < _lerpDuration)
+        {
+            _playerHealthBar.value = Mathf.Lerp(initValue, amount, (elapsedTime/_lerpDuration));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     private void SetBossHealthUI(int amount)

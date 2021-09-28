@@ -243,6 +243,7 @@ MonoBehaviour:
   _playerHealthText: {fileID: 1827930697}
   _playerHealthBar: {fileID: 2098009835}
   _bossHealthText: {fileID: 1931250828}
+  _lerpDuration: 1.2
 --- !u!114 &136265551 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1156230666, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
@@ -2210,7 +2211,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 3
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 3
   m_OnValueChanged:
     m_PersistentCalls:
