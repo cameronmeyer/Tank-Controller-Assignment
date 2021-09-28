@@ -7,15 +7,15 @@ public class UIWriter : MonoBehaviour
 {
     [SerializeField] Health _playerHealth;
     [SerializeField] Health _bossHealth;
-    [SerializeField] Text _playerHealthText;
     [SerializeField] Slider _playerHealthBar;
-    [SerializeField] Text _bossHealthText;
+    [SerializeField] Slider _bossHealthBar;
     [SerializeField] float _lerpDuration;
     //[SerializeField] Text _treasureText;
 
     private void Awake()
     {
         _playerHealthBar.maxValue = _playerHealth.MaxHealth;
+        _bossHealthBar.maxValue = _bossHealth.MaxHealth;
     }
 
     private void OnEnable()
@@ -32,23 +32,18 @@ public class UIWriter : MonoBehaviour
 
     private void OnPlayerHealthUpdate(int amount)
     {
-        //SetPlayerHealthUI(amount);
         StartCoroutine(SetPlayerHealthUI(amount));
     }
 
     private void OnBossHealthUpdate(int amount)
     {
-        SetBossHealthUI(amount);
+        StartCoroutine(SetBossHealthUI(amount));
     }
 
     private IEnumerator SetPlayerHealthUI(int amount)
     {
-        //_playerHealthText.text = "Player HP: " + amount + "HP";
-        //_playerHealthBar.value = amount;
-
         float elapsedTime = 0;
         float initValue = _playerHealthBar.value;
-        //float time = Time.time + _lerpDuration;
 
         while(elapsedTime < _lerpDuration)
         {
@@ -58,9 +53,17 @@ public class UIWriter : MonoBehaviour
         }
     }
 
-    private void SetBossHealthUI(int amount)
+    private IEnumerator SetBossHealthUI(int amount)
     {
-        _bossHealthText.text = "Boss HP: " + amount + "HP";
+        float elapsedTime = 0;
+        float initValue = _bossHealthBar.value;
+
+        while (elapsedTime < _lerpDuration)
+        {
+            _bossHealthBar.value = Mathf.Lerp(initValue, amount, (elapsedTime / _lerpDuration));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     /*public void SetTreasureUI(int amount)
