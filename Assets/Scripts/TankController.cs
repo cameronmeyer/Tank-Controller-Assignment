@@ -9,6 +9,9 @@ public class TankController : MonoBehaviour
 
     [SerializeField] GameObject _projectileSpawn;
     [SerializeField] GameObject _projectile;
+    [SerializeField] float _fireDelay = 0.2f;
+    private bool _canFire = false;
+    private float _timeLastFired = 0f;
     [SerializeField] float _projectileMinSpeed = 3f;
     [SerializeField] float _projectileMaxSpeed = 10f;
     [SerializeField] float _projectileFullChargeTime = 2f;
@@ -79,37 +82,45 @@ public class TankController : MonoBehaviour
 
     public void Fire()
     {
-        if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
+        // allow firing if we've waited through the delay
+        if (!_canFire && Time.time >= (_timeLastFired + _fireDelay) && !_chargingFire) { _canFire = true; }
+
+        if (_canFire)
         {
-            _chargingFire = true;
-            _chargeStartTime = Time.time;
-            _chargeTime = Time.time;
-            _chargeParticles.Play();
-        }
-        else if (_chargingFire && (Input.GetKeyUp("space") || Input.GetMouseButtonUp(0)))
-        {
-            _chargingFire = false;
-            _chargeTime = Time.time;
-            _chargeParticles.Stop();
+            if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
+            {
+                _chargingFire = true;
+                _chargeStartTime = Time.time;
+                _chargeTime = Time.time;
+                _chargeParticles.Play();
+            }
+            else if (_chargingFire && (Input.GetKeyUp("space") || Input.GetMouseButtonUp(0)))
+            {
+                _canFire = false;
+                _chargingFire = false;
+                _chargeTime = Time.time;
+                _chargeParticles.Stop();
+                _timeLastFired = Time.time;
 
-            // calculate the % of full charge on the projectile
-            float chargeAmount = (_chargeTime - _chargeStartTime) / ((_chargeStartTime + _projectileFullChargeTime) - _chargeStartTime);
-            chargeAmount = Mathf.Clamp(chargeAmount, 0, 1);
+                // calculate the % of full charge on the projectile
+                float chargeAmount = (_chargeTime - _chargeStartTime) / ((_chargeStartTime + _projectileFullChargeTime) - _chargeStartTime);
+                chargeAmount = Mathf.Clamp(chargeAmount, 0, 1);
 
-            // calculate projectile speed based on chargeAmount
-            // (remapping from {0,1} range to {minSpeed, maxSpeed} range)
-            float projectileSpeed = _projectileMinSpeed + chargeAmount * (_projectileMaxSpeed - _projectileMinSpeed);
+                // calculate projectile speed based on chargeAmount
+                // (remapping from {0,1} range to {minSpeed, maxSpeed} range)
+                float projectileSpeed = _projectileMinSpeed + chargeAmount * (_projectileMaxSpeed - _projectileMinSpeed);
 
-            GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
-            PlayerProjectile pProjectile = projectile.GetComponent<PlayerProjectile>();
-            projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount * _projectileScaleFactor);
-            pProjectile.Speed = projectileSpeed;
-            pProjectile.Charge = chargeAmount;
+                GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
+                PlayerProjectile pProjectile = projectile.GetComponent<PlayerProjectile>();
+                projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount * _projectileScaleFactor);
+                pProjectile.Speed = projectileSpeed;
+                pProjectile.Charge = chargeAmount;
 
-            _muzzleFlash.Play();
+                _muzzleFlash.Play();
 
-            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
-            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
+                Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
+                Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
+            }
         }
     }
 

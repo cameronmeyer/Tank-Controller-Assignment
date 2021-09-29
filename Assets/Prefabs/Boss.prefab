@@ -10487,6 +10487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 10
+  _invincibilityDuration: 0.4
   _ui: {fileID: 0}
 --- !u!114 &6262189211867310524
 MonoBehaviour:

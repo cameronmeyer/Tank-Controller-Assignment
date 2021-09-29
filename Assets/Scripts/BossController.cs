@@ -55,11 +55,6 @@ public class BossController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        //Fire();
-    }
-
     private void FixedUpdate()
     {
         // ensure tank is flat on the ground

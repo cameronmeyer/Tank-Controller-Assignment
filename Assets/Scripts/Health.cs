@@ -9,6 +9,9 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] int _maxHealth = 3;
     private bool _isPlayer = false;
     private bool _isPoweredUp = false;
+    private bool _isInvincible = false;
+    [SerializeField] float _invincibilityDuration = 0.4f;
+    private float _timeLastDamaged = 0f;
 
     [SerializeField] UIWriter _ui;
 
@@ -47,10 +50,16 @@ public class Health : MonoBehaviour, IDamageable
 
     public void Damage(int damage)
     {
-        if (!_isPlayer || (_isPlayer &&!_isPoweredUp))
+        if(_isInvincible && Time.time >= (_timeLastDamaged + _invincibilityDuration))
+        {
+            _isInvincible = false;
+        }
+
+        if (!_isInvincible && (!_isPlayer || (_isPlayer &&!_isPoweredUp)))
         {
             _currentHealth -= damage;
             HealthUpdate?.Invoke(_currentHealth);
+            _timeLastDamaged = Time.time;
             
             if (_currentHealth <= 0)
             {
@@ -59,6 +68,7 @@ public class Health : MonoBehaviour, IDamageable
             }
             else
             {
+                _isInvincible = true;
                 Flash();
             }
         }
