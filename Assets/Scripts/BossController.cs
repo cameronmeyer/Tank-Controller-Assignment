@@ -12,14 +12,11 @@ public class BossController : MonoBehaviour
 
     [SerializeField] GameObject _projectileSpawn;
     [SerializeField] GameObject _projectile;
-    [SerializeField] float _projectileMinSpeed = 3f;
-    [SerializeField] float _projectileMaxSpeed = 10f;
-    [SerializeField] float _projectileFullChargeTime = 2f;
-    [SerializeField] float _projectileScaleFactor = 1f;
-    private bool _chargingFire = false;
-    private float _chargeStartTime = 0f;
-    private float _chargeTime = 0f;
     [SerializeField] ParticleSystem _muzzleFlash;
+    [SerializeField] AudioClip _projectileFire;
+    private bool _canFire = true;
+    [SerializeField] float _fireDelay = 1f;
+    private float _timeLastFired = 0f;
 
     [SerializeField] GameObject _base;
     [SerializeField] GameObject _turret;
@@ -54,7 +51,7 @@ public class BossController : MonoBehaviour
 
     private void Update()
     {
-        Fire();
+        //Fire();
     }
 
     private void FixedUpdate()
@@ -65,6 +62,7 @@ public class BossController : MonoBehaviour
                                                     _base.transform.eulerAngles.z);
         Movement();
         TurnTurret();
+        Fire();
         Feedback();
     }
 
@@ -77,7 +75,11 @@ public class BossController : MonoBehaviour
             _isRushing = false;
 
             // determine whether we will be idle (0), patroling (1), or rushing (2)
-            int movementAction = Random.Range(0, 3);
+            int movementAction = 0;// = Random.Range(0, 3);
+            float actionProbability = Random.value;
+            if(actionProbability <= 0.5f) { movementAction = 0; }
+            else if(actionProbability <= 0.9f) { movementAction = 1; }
+            else { movementAction = 2; }
 
             switch (movementAction)
             {
@@ -203,14 +205,29 @@ public class BossController : MonoBehaviour
 
     private void Fire()
     {
-        if (Input.GetKeyUp(KeyCode.R))
+        // allow firing if we've waited through the delay
+        if(!_canFire && Time.time >= (_timeLastFired + _fireDelay)) { _canFire = true; }
+
+        // potentially perform attack if idle and can fire
+        if (!_isPatroling && !_isRushing && !_isTelegraphing && _canFire)
         {
-            GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
+            float fireAction = Random.value;
+            if (fireAction <= 0.5f)
+            {
+                _canFire = false;
+                _timeLastFired = Time.time;
 
-            _muzzleFlash.Play();
+                GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
 
-            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
-            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
+                _muzzleFlash.Play();
+                if (_projectileFire != null)
+                {
+                    AudioHelper.PlayClip2D(_projectileFire, 1f);
+                }
+
+                Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
+                Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
+            }
         }
     }
 }

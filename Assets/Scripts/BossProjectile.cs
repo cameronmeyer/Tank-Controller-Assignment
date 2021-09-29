@@ -9,7 +9,6 @@ public class BossProjectile : MonoBehaviour
     [SerializeField] float _speed;
     [SerializeField] ParticleSystem _impactParticles;
     [SerializeField] AudioClip _impactSound;
-    [SerializeField] AudioClip _projectileFire;
 
     private CinemachineShake _cs;
     [SerializeField] float _shakeIntensity = 3f;
@@ -17,7 +16,6 @@ public class BossProjectile : MonoBehaviour
 
     private void Awake()
     {
-        AudioHelper.PlayClip2D(_projectileFire, 1f);
         _cs = Camera.main.GetComponent<CinemachineShake>();
         _rb = GetComponent<Rigidbody>();
         _rb.useGravity = false;
