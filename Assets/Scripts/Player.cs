@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] float _flashDuration = 0.5f;
     [SerializeField] Color _flashColor;
 
+    [SerializeField] ParticleSystem _explosion;
+    [SerializeField] AudioClip _playerDeathSound;
+
     private void Awake()
     {
         _tankController = GetComponent<TankController>();
@@ -66,6 +69,12 @@ public class Player : MonoBehaviour
 
     public void Kill()
     {
+        // Spawn explosion particles
+        ParticleSystem deathParticles = Instantiate<ParticleSystem>(_explosion, transform);
+        deathParticles.Play();
+
+        AudioHelper.PlayClip2D(_playerDeathSound, 1f);
+
         StartCoroutine(Reset());
         _tankController.enabled = false;
         gameObject.GetComponent<Collider>().enabled = false;

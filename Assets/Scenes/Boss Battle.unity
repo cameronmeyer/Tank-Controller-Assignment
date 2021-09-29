@@ -1277,11 +1277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7deae910b21a2142adfc1132501442e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1258572465 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7140981864302352526, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-  m_PrefabInstance: {fileID: 1431200516}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1278046655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,38 +1584,6 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 28939476}
-    - target: {fileID: 834911896, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-      propertyPath: _maxHealth
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-      propertyPath: _cover
-      value: 
-      objectReference: {fileID: 1258572465}
-    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-      propertyPath: _explosion
-      value: 
-      objectReference: {fileID: 1193205990075732618, guid: d33d66a0dcfef074eacdbed6a9fa2d1a, type: 3}
-    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-      propertyPath: _flashColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-      propertyPath: _flashColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-      propertyPath: _flashColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-      propertyPath: _flashColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
-      propertyPath: _flashDuration
-      value: 0.75
-      objectReference: {fileID: 0}
     - target: {fileID: 3235705170644800381, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
       propertyPath: m_Name
       value: Boss
@@ -2632,42 +2595,18 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 28939476}
-    - target: {fileID: 1156230666, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156230666, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
-      propertyPath: _maxHealth
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4953288105116543784, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
       propertyPath: _ground
       value: 
       objectReference: {fileID: 1785415583}
     - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
-      propertyPath: _ui
+      propertyPath: _explosion
       value: 
-      objectReference: {fileID: 28939476}
+      objectReference: {fileID: 1193205990075732618, guid: df190dc628e6db640a2416b8968656be, type: 3}
     - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
-      propertyPath: _flashColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
-      propertyPath: _flashColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
-      propertyPath: _flashColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
-      propertyPath: _flashColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
-      propertyPath: _flashDuration
-      value: 0.75
-      objectReference: {fileID: 0}
+      propertyPath: _playerDeathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a4e4a384c7ff0d4d9d4535055e05fcf, type: 3}
     - target: {fileID: 4953288105116543789, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
       propertyPath: m_Name
       value: Tank

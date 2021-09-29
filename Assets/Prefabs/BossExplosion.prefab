@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1193205990075732618}
   - component: {fileID: 1193205990075732619}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: BossExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1364,7 +1364,7 @@ ParticleSystem:
     enabled: 1
     mode: 0
     timeMode: 2
-    fps: 25
+    fps: 24
     frameOverTime:
       serializedVersion: 2
       minMaxState: 1
