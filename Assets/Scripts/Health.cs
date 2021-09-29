@@ -16,6 +16,7 @@ public class Health : MonoBehaviour, IDamageable
     public float MaxHealth { get => _maxHealth; }
 
     public event Action<int> HealthUpdate;
+    public event Action GameEnd;
 
     void Start()
     {
@@ -50,9 +51,10 @@ public class Health : MonoBehaviour, IDamageable
         {
             _currentHealth -= damage;
             HealthUpdate?.Invoke(_currentHealth);
-            Debug.Log("Player's health: " + _currentHealth);
+            
             if (_currentHealth <= 0)
             {
+                GameEnd?.Invoke();
                 Kill();
             }
             else

@@ -11,6 +11,8 @@ public class UIWriter : MonoBehaviour
     [SerializeField] Health _bossHealth;
     [SerializeField] Slider _playerHealthBar;
     [SerializeField] Slider _bossHealthBar;
+    [SerializeField] Text _gameEndText;
+    [SerializeField] Text _gameEndTextShadow;
     [SerializeField] float _barLerpDuration = 1.0f;
     [SerializeField] float _vignetteLerpDuration = 1.0f;
     [SerializeField] float _maxVignetteIntensity = 0.3f;
@@ -24,8 +26,6 @@ public class UIWriter : MonoBehaviour
 
     [SerializeField] AudioClip _playerDamageSound;
 
-    //[SerializeField] Text _treasureText;
-
     private void Awake()
     {
         _playerHealthBar.maxValue = _playerHealth.MaxHealth;
@@ -38,6 +38,9 @@ public class UIWriter : MonoBehaviour
     {
         _playerHealth.HealthUpdate += OnPlayerHealthUpdate;
         _bossHealth.HealthUpdate += OnBossHealthUpdate;
+
+        _playerHealth.GameEnd += OnGameLose;
+        _bossHealth.GameEnd += OnGameWin;
     }
 
     private void OnDisable()
@@ -62,7 +65,10 @@ public class UIWriter : MonoBehaviour
     {
         StartCoroutine(SetBossHealthUI(amount));
 
-        _cs.Shake(_shakeIntensity, _shakeTimer);
+        if (_bossHealthBar.value > amount)
+        {
+            _cs.Shake(_shakeIntensity, _shakeTimer);
+        }
     }
 
     private IEnumerator DamageFlash()
@@ -112,8 +118,15 @@ public class UIWriter : MonoBehaviour
         }
     }
 
-    /*public void SetTreasureUI(int amount)
+    private void OnGameWin()
     {
-        _treasureText.text = "Treasure: $" + amount;
-    }*/
+        _gameEndText.text = "You Win!";
+        _gameEndTextShadow.text = "You Win!";
+    }
+
+    private void OnGameLose()
+    {
+        _gameEndText.text = "You Lose!";
+        _gameEndTextShadow.text = "You Lose!";
+    }
 }
