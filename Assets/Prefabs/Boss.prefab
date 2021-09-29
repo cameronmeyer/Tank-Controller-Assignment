@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294674819495744545}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.15, y: 0.521, z: 0}
+  m_LocalPosition: {x: 1.15, y: 0.433, z: 0}
   m_LocalScale: {x: 0.7, y: 0.86, z: 2.6}
   m_Children:
   - {fileID: 7764346605562975222}
@@ -189,8 +189,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994126864547978394}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: -0.135}
-  m_LocalScale: {x: 1.6, y: 0.8, z: 1.881777}
+  m_LocalPosition: {x: 0, y: 0.8, z: -0.21}
+  m_LocalScale: {x: 1.6, y: 0.8, z: 1.6245193}
   m_Children: []
   m_Father: {fileID: 6156163951470730152}
   m_RootOrder: 0
@@ -380,7 +380,9 @@ MonoBehaviour:
   _turret: {fileID: 6994421481380999498}
   _turretPivot: {fileID: 5574676520669870787}
   _ground: {fileID: 0}
-  _patrolPositionsObj: {fileID: 0}
+  LowerLeftBound: {fileID: 0}
+  UpperRightBound: {fileID: 0}
+  _telegraphDuration: 1.5
 --- !u!54 &605762910
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -423,7 +425,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4905928198935459875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.15, y: 0.521, z: 0}
+  m_LocalPosition: {x: -1.15, y: 0.433, z: 0}
   m_LocalScale: {x: 0.7, y: 0.86, z: 2.6}
   m_Children:
   - {fileID: 6876643511126397047}

@@ -5625,6 +5625,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _flashDuration: 0.75
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
+  _explosion: {fileID: 1193205990075732618, guid: df190dc628e6db640a2416b8968656be, type: 3}
+  _playerDeathSound: {fileID: 8300000, guid: 4a4e4a384c7ff0d4d9d4535055e05fcf, type: 3}
 --- !u!114 &1156230666
 MonoBehaviour:
   m_ObjectHideFlags: 0
