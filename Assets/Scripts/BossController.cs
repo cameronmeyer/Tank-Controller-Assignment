@@ -202,35 +202,15 @@ public class BossController : MonoBehaviour
     }
 
     private void Fire()
-    {/*
-        if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
+    {
+        if (Input.GetKeyUp(KeyCode.R))
         {
-            _chargingFire = true;
-            _chargeStartTime = Time.time;
-            _chargeTime = Time.time;
-        }
-        else if (_chargingFire && (Input.GetKeyUp("space") || Input.GetMouseButtonUp(0)))
-        {
-            _chargingFire = false;
-            _chargeTime = Time.time;
-
-            // calculate the % of full charge on the projectile
-            float chargeAmount = (_chargeTime - _chargeStartTime) / ((_chargeStartTime + _projectileFullChargeTime) - _chargeStartTime);
-            chargeAmount = Mathf.Clamp(chargeAmount, 0, 1);
-
-            // calculate projectile speed based on chargeAmount
-            // (remapping from {0,1} range to {minSpeed, maxSpeed} range)
-            float projectileSpeed = _projectileMinSpeed + chargeAmount * (_projectileMaxSpeed - _projectileMinSpeed);
-
             GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
-            PlayerProjectile pProjectile = projectile.GetComponent<PlayerProjectile>();
-            projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount * _projectileScaleFactor);
-            pProjectile.Speed = projectileSpeed;
 
             _muzzleFlash.Play();
 
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
-        }*/
+        }
     }
 }
