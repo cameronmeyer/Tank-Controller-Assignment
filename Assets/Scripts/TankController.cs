@@ -16,6 +16,7 @@ public class TankController : MonoBehaviour
     private bool _chargingFire = false;
     private float _chargeStartTime = 0f;
     private float _chargeTime = 0f;
+    [SerializeField] ParticleSystem _chargeParticles;
     [SerializeField] ParticleSystem _muzzleFlash;
 
     [SerializeField] GameObject _base;
@@ -83,11 +84,13 @@ public class TankController : MonoBehaviour
             _chargingFire = true;
             _chargeStartTime = Time.time;
             _chargeTime = Time.time;
+            _chargeParticles.Play();
         }
         else if (_chargingFire && (Input.GetKeyUp("space") || Input.GetMouseButtonUp(0)))
         {
             _chargingFire = false;
             _chargeTime = Time.time;
+            _chargeParticles.Stop();
 
             // calculate the % of full charge on the projectile
             float chargeAmount = (_chargeTime - _chargeStartTime) / ((_chargeStartTime + _projectileFullChargeTime) - _chargeStartTime);
