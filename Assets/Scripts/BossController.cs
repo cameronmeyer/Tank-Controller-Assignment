@@ -8,6 +8,7 @@ public class BossController : MonoBehaviour
     [SerializeField] Player _player;
 
     [SerializeField] float _moveSpeed = 0.25f;
+    [SerializeField] float _rushSpeed = 0.5f;
 
     [SerializeField] GameObject _projectileSpawn;
     [SerializeField] GameObject _projectile;
@@ -35,6 +36,9 @@ public class BossController : MonoBehaviour
     private bool _isRushing = false;
     private bool _isTelegraphing = false;
 
+    [SerializeField] ParticleSystem _rushParticles;
+    [SerializeField] ParticleSystem _rushTelegraphParticles;
+
     public float MoveSpeed
     {
         get => _moveSpeed;
@@ -55,8 +59,13 @@ public class BossController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // ensure tank is flat on the ground
+        _base.transform.rotation = Quaternion.Euler(0,
+                                                    _base.transform.eulerAngles.y,
+                                                    _base.transform.eulerAngles.z);
         Movement();
         TurnTurret();
+        Feedback();
     }
 
     private void Movement()
@@ -68,16 +77,16 @@ public class BossController : MonoBehaviour
             _isRushing = false;
 
             // determine whether we will be idle (0), patroling (1), or rushing (2)
-            int movementAction = Random.Range(0, 2);
+            int movementAction = Random.Range(0, 3);
 
             switch (movementAction)
             {
-                case 0:
+                case 0: // IDLE
                     _nextLocation = transform.position;
                     _timeToNextMovement = Time.time + Random.Range(1.2f, 3f);
                     Debug.Log("Idle Now");
                     break;
-                case 1:
+                case 1: // PATROL
                     _nextLocation = new Vector3(UnityEngine.Random.Range(LowerLeftBound.position.x, UpperRightBound.position.x),
                                                 UnityEngine.Random.Range(LowerLeftBound.position.y, UpperRightBound.position.y),
                                                 UnityEngine.Random.Range(LowerLeftBound.position.z, UpperRightBound.position.z));
@@ -86,16 +95,14 @@ public class BossController : MonoBehaviour
                     StartCoroutine(rotateBase((_nextLocation - transform.position), _telegraphDuration));
                     Debug.Log("Patroling Now");
                     break;
-                case 2:
+                case 2: // RUSH
                     _nextLocation = _player.transform.position;
                     _timeToNextMovement = Time.time + 3.2f;
                     _isRushing = true;
+                    StartCoroutine(rotateBase((_nextLocation - transform.position), _telegraphDuration));
                     Debug.Log("Rushing Now");
                     break;
             }
-
-            // randomly pick how long we will perform the movement action for
-            //_timeToNextMovement = Time.time + Random.Range(1.2f, 3f);
         }
 
         MoveTank();
@@ -107,8 +114,12 @@ public class BossController : MonoBehaviour
         Vector3 normMove = move;
         normMove.Normalize();
 
+        float currentMoveSpeed;
+        if(_isRushing) { currentMoveSpeed = _rushSpeed; }
+        else { currentMoveSpeed = _moveSpeed; }
+
         // don't move the object if it's already within the position threshold
-        if (move.magnitude <= (normMove * _moveSpeed).magnitude) // if the distance vector is less than the amount we can move in 1 frame
+        if (move.magnitude <= (normMove * currentMoveSpeed).magnitude) // if the distance vector is less than the amount we can move in 1 frame
         {
             if (_isPatroling && !_isTelegraphing) // calculate a new point to patrol to
             {
@@ -117,6 +128,11 @@ public class BossController : MonoBehaviour
                                             UnityEngine.Random.Range(LowerLeftBound.position.z, UpperRightBound.position.z));
                 StartCoroutine(rotateBase((_nextLocation - transform.position), _telegraphDuration));
             }
+            else if(_isRushing && !_isTelegraphing)
+            {
+                _isRushing = false; // the rush towards the player has been completed within the time limit
+                return;
+            }
             else
             {
                 return; // don't move if we're already basically in position
@@ -124,7 +140,7 @@ public class BossController : MonoBehaviour
         }
         else if (!_isTelegraphing && (_isPatroling || _isRushing)) // actually translate and rotate the object if it's supposed to move
         {
-            transform.position += normMove * _moveSpeed;
+            transform.position += normMove * currentMoveSpeed;
 
             StartCoroutine(rotateBase(move, 0));
         }
@@ -165,6 +181,24 @@ public class BossController : MonoBehaviour
     private void TurnTurret()
     {
         _turretPivot.transform.rotation = Quaternion.LookRotation((_player.transform.position - transform.position), Vector3.up);
+    }
+
+    private void Feedback()
+    {
+        if(_isRushing && _isTelegraphing && !_rushTelegraphParticles.isPlaying)
+        {
+            _rushTelegraphParticles.Play();
+        }
+        else if(_isRushing && !_isTelegraphing)
+        {
+            if(_rushTelegraphParticles.isPlaying) { _rushTelegraphParticles.Stop(); }
+            if(!_rushParticles.isPlaying) { _rushParticles.Play(); }
+        }
+
+        if(!_isRushing)
+        {
+            if (_rushParticles.isPlaying) { _rushParticles.Stop(); }
+        }
     }
 
     private void Fire()
