@@ -336,7 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a157f49cec9d52e45abeb28e5795b9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cover: {fileID: 7140981864302352526}
+  _explosion: {fileID: 1193205990075732618, guid: d33d66a0dcfef074eacdbed6a9fa2d1a, type: 3}
   _bossDeathSound: {fileID: 8300000, guid: 2b766711c2abc204aac77c9d37da36e8, type: 3}
+  _flashDuration: 0.75
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &834911896
 MonoBehaviour:
   m_ObjectHideFlags: 0

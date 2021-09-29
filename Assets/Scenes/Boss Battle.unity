@@ -1601,6 +1601,26 @@ PrefabInstance:
       propertyPath: _explosion
       value: 
       objectReference: {fileID: 1193205990075732618, guid: d33d66a0dcfef074eacdbed6a9fa2d1a, type: 3}
+    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
+      propertyPath: _flashColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
+      propertyPath: _flashColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
+      propertyPath: _flashColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
+      propertyPath: _flashColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 171454093195603420, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
+      propertyPath: _flashDuration
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 3235705170644800381, guid: d268851e2f29ef44681f9be62a784c2d, type: 3}
       propertyPath: m_Name
       value: Boss
@@ -2616,6 +2636,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1156230666, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
+      propertyPath: _maxHealth
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4953288105116543784, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
       propertyPath: _ground
       value: 
@@ -2624,6 +2648,26 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 28939476}
+    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
+      propertyPath: _flashColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
+      propertyPath: _flashColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
+      propertyPath: _flashColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
+      propertyPath: _flashColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953288105116543785, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
+      propertyPath: _flashDuration
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 4953288105116543789, guid: 45f5613b6b9a5fd4f8867de167a1644e, type: 3}
       propertyPath: m_Name
       value: Tank

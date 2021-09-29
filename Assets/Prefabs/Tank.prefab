@@ -5623,7 +5623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7deae910b21a2142adfc1132501442e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ui: {fileID: 0}
+  _flashDuration: 0.75
+  _flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1156230666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5631,7 +5632,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4953288105116543789}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc47a63e240f2534495e1dc0377d7f72, type: 3}
   m_Name: 

@@ -98,6 +98,7 @@ public class TankController : MonoBehaviour
             PlayerProjectile pProjectile = projectile.GetComponent<PlayerProjectile>();
             projectile.transform.localScale = projectile.transform.localScale * (1 + chargeAmount * _projectileScaleFactor);
             pProjectile.Speed = projectileSpeed;
+            pProjectile.Charge = chargeAmount;
 
             _muzzleFlash.Play();
 

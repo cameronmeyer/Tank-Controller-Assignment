@@ -7,6 +7,8 @@ public class PlayerProjectile : MonoBehaviour
 {
     private Rigidbody _rb;
     private float _speed;
+    private float _charge; // How charged the projectile was (0..1)
+    [SerializeField] float _maxDamage = 2.0f; // How much damage a fully charged projectile can inflict
     [SerializeField] ParticleSystem _impactParticles;
     [SerializeField] AudioClip _impactSound;
     [SerializeField] AudioClip _projectileFire;
@@ -14,6 +16,12 @@ public class PlayerProjectile : MonoBehaviour
     private CinemachineShake _cs;
     [SerializeField] float _shakeIntensity = 3f;
     [SerializeField] float _shakeTimer = 0.1f;
+
+    public float Charge
+    {
+        get => _charge;
+        set => _charge = value;
+    }
 
     public float Speed
     {
@@ -53,7 +61,8 @@ public class PlayerProjectile : MonoBehaviour
         IDamageable damageableObj = other.gameObject.GetComponent<IDamageable>();
         if(damageableObj != null)
         {
-            damageableObj.Damage(1);
+            int damage = (int) (_charge * (_maxDamage - 1) + 1);
+            damageableObj.Damage(damage);
         }
 
         ImpactFeedback(Quaternion.LookRotation(other.contacts[0].normal));

@@ -26,6 +26,12 @@ public class Health : MonoBehaviour, IDamageable
         HealthUpdate?.Invoke(_currentHealth);
     }
 
+    public void Flash()
+    {
+        if (_isPlayer) { this.GetComponent<Player>().Flash(); }
+        else { this.GetComponent<Boss>().Flash(); }
+    }
+
     public void Kill()
     {
         if(_isPlayer) { this.GetComponent<Player>().Kill(); }
@@ -48,6 +54,10 @@ public class Health : MonoBehaviour, IDamageable
             if (_currentHealth <= 0)
             {
                 Kill();
+            }
+            else
+            {
+                Flash();
             }
         }
     }
