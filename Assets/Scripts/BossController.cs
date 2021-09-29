@@ -17,6 +17,9 @@ public class BossController : MonoBehaviour
     private bool _canFire = true;
     [SerializeField] float _fireDelay = 1f;
     private float _timeLastFired = 0f;
+    [SerializeField] float _multishotSpread = 45f;
+    [SerializeField] int _multishotCount = 5;
+    [SerializeField] float _multishotDistance = 2f;
 
     [SerializeField] GameObject _base;
     [SerializeField] GameObject _turret;
@@ -32,9 +35,12 @@ public class BossController : MonoBehaviour
     private bool _isPatroling = false;
     private bool _isRushing = false;
     private bool _isTelegraphing = false;
+    private bool _isMultishot = false;
 
     [SerializeField] ParticleSystem _rushParticles;
     [SerializeField] ParticleSystem _rushTelegraphParticles;
+    [SerializeField] ParticleSystem _multishotTelegraphParticles;
+    [SerializeField] AudioClip _multishotTelegraphSound;
 
     public float MoveSpeed
     {
@@ -196,17 +202,33 @@ public class BossController : MonoBehaviour
             if(_rushTelegraphParticles.isPlaying) { _rushTelegraphParticles.Stop(); }
             if(!_rushParticles.isPlaying) { _rushParticles.Play(); }
         }
+        else if(_isMultishot && _isTelegraphing)
+        {
+            if (!_multishotTelegraphParticles.isPlaying)
+            {
+                _multishotTelegraphParticles.Play();
+                if (_multishotTelegraphSound != null)
+                {
+                    AudioHelper.PlayClip2D(_multishotTelegraphSound, 1f);
+                }
+            }
+        }
 
         if(!_isRushing)
         {
             if (_rushParticles.isPlaying) { _rushParticles.Stop(); }
+        }
+        
+        if (_isMultishot && !_isTelegraphing)
+        {
+            if (_multishotTelegraphParticles.isPlaying) { _multishotTelegraphParticles.Stop(); }
         }
     }
 
     private void Fire()
     {
         // allow firing if we've waited through the delay
-        if(!_canFire && Time.time >= (_timeLastFired + _fireDelay)) { _canFire = true; }
+        if(!_canFire && Time.time >= (_timeLastFired + _fireDelay) && !_isMultishot) { _canFire = true; }
 
         // potentially perform attack if idle and can fire
         if (!_isPatroling && !_isRushing && !_isTelegraphing && _canFire)
@@ -215,19 +237,46 @@ public class BossController : MonoBehaviour
             if (fireAction <= 0.5f)
             {
                 _canFire = false;
-                _timeLastFired = Time.time;
-
-                GameObject projectile = Instantiate(_projectile, _projectileSpawn.transform.position, _projectileSpawn.transform.rotation);
-
-                _muzzleFlash.Play();
-                if (_projectileFire != null)
-                {
-                    AudioHelper.PlayClip2D(_projectileFire, 1f);
-                }
-
-                Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
-                Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
+                _isTelegraphing = true;
+                _isMultishot = true;
+                StartCoroutine(MultiShot(_projectileSpawn.transform.rotation.eulerAngles.y, _multishotCount, _multishotSpread, _projectileSpawn.transform.position));
             }
         }
+    }
+
+    private IEnumerator MultiShot(float rotation, int numProjectiles, float spread, Vector3 position)
+    {
+        // wait for multishot telegraph to complete
+        float elapsedTime = 0;
+        float duration = _telegraphDuration / 3;
+        _timeToNextMovement += duration;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        float angleOffset = spread / numProjectiles; // find the angle between each projectile
+        float startRotation = rotation - (spread / 2);
+        //float spawnDistance = 3f;
+
+        //Vector3 spawnPos = new Vector3(_rb.transform.position.x, 0.5f, _rb.transform.position.z); // set the spawn pos to the correct height
+
+        for (float rot = startRotation; rot < startRotation + spread; rot += angleOffset)
+        {
+            GameObject projectile = Instantiate(_projectile, position, Quaternion.AngleAxis(rot, Vector3.up));
+            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
+            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), _ground.GetComponent<Collider>());
+            projectile.transform.Translate(Vector3.forward * _multishotDistance);
+        }
+
+        _timeLastFired = Time.time;
+        _muzzleFlash.Play();
+        if (_projectileFire != null)
+        {
+            AudioHelper.PlayClip2D(_projectileFire, 1f);
+        }
+
+        _isMultishot = false;
     }
 }
