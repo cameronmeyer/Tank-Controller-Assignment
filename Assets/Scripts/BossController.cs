@@ -41,6 +41,7 @@ public class BossController : MonoBehaviour
 
     [SerializeField] ParticleSystem _rushParticles;
     [SerializeField] ParticleSystem _rushTelegraphParticles;
+    [SerializeField] AudioClip _rushTelegraphSound;
     [SerializeField] ParticleSystem _multishotTelegraphParticles;
     [SerializeField] AudioClip _multishotTelegraphSound;
     [SerializeField] ParticleSystem _laserParticles;
@@ -196,6 +197,11 @@ public class BossController : MonoBehaviour
         if(_isRushing && _isTelegraphing && !_rushTelegraphParticles.isPlaying)
         {
             _rushTelegraphParticles.Play();
+
+            if (_rushTelegraphSound != null)
+            {
+                AudioHelper.PlayClip2D(_rushTelegraphSound, 1f);
+            }
         }
         else if(_isRushing && !_isTelegraphing)
         {

@@ -50,9 +50,6 @@ public class TankController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _base.transform.rotation = Quaternion.Euler(0,
-                                                    _base.transform.eulerAngles.y,
-                                                    _base.transform.eulerAngles.z);
         MoveTank();
         TurnTurret();
     }
