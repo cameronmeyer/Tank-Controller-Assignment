@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
@@ -80,6 +81,8 @@ public class Boss : MonoBehaviour
         {
             mr.enabled = false;
         }
+
+        StartCoroutine(Reset());
     }
 
     void OnCollisionEnter(Collision other)
@@ -91,5 +94,12 @@ public class Boss : MonoBehaviour
         {
             damageableObj.Damage(1);
         }
+    }
+
+    IEnumerator Reset()
+    {
+        yield return new WaitForSeconds(2);
+        Debug.Log("Reset Scene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

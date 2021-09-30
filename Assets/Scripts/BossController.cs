@@ -14,6 +14,7 @@ public class BossController : MonoBehaviour
     [SerializeField] GameObject _projectile;
     [SerializeField] ParticleSystem _muzzleFlash;
     [SerializeField] AudioClip _projectileFire;
+    [SerializeField] AudioClip _laserFire;
     private bool _canFire = true;
     [SerializeField] float _fireDelay = 1f;
     private float _timeLastFired = 0f;
@@ -36,11 +37,15 @@ public class BossController : MonoBehaviour
     private bool _isRushing = false;
     private bool _isTelegraphing = false;
     private bool _isMultishot = false;
+    private bool _isLaser = false;
 
     [SerializeField] ParticleSystem _rushParticles;
     [SerializeField] ParticleSystem _rushTelegraphParticles;
     [SerializeField] ParticleSystem _multishotTelegraphParticles;
     [SerializeField] AudioClip _multishotTelegraphSound;
+    [SerializeField] ParticleSystem _laserParticles;
+    [SerializeField] ParticleSystem _laserTelegraphParticles;
+    [SerializeField] AudioClip _laserTelegraphSound;
 
     public float MoveSpeed
     {
@@ -93,7 +98,7 @@ public class BossController : MonoBehaviour
                     _nextLocation = new Vector3(UnityEngine.Random.Range(LowerLeftBound.position.x, UpperRightBound.position.x),
                                                 UnityEngine.Random.Range(LowerLeftBound.position.y, UpperRightBound.position.y),
                                                 UnityEngine.Random.Range(LowerLeftBound.position.z, UpperRightBound.position.z));
-                    _timeToNextMovement = Time.time + Random.Range(2.2f, 4f);
+                    _timeToNextMovement = Time.time + Random.Range(1.5f, 2.2f);
                     _isPatroling = true;
                     StartCoroutine(rotateBase((_nextLocation - transform.position), _telegraphDuration));
                     Debug.Log("Patroling Now");
@@ -208,8 +213,19 @@ public class BossController : MonoBehaviour
                 }
             }
         }
+        else if (_isLaser && _isTelegraphing)
+        {
+            if (!_laserTelegraphParticles.isPlaying)
+            {
+                _laserTelegraphParticles.Play();
+                if (_laserTelegraphSound != null)
+                {
+                    AudioHelper.PlayClip2D(_laserTelegraphSound, 1f);
+                }
+            }
+        }
 
-        if(!_isRushing)
+        if (!_isRushing)
         {
             if (_rushParticles.isPlaying) { _rushParticles.Stop(); }
         }
@@ -217,6 +233,11 @@ public class BossController : MonoBehaviour
         if (_isMultishot && !_isTelegraphing)
         {
             if (_multishotTelegraphParticles.isPlaying) { _multishotTelegraphParticles.Stop(); }
+        }
+
+        if (_isLaser && !_isTelegraphing)
+        {
+            if (_laserTelegraphParticles.isPlaying) { _laserTelegraphParticles.Stop(); }
         }
     }
 
@@ -236,7 +257,57 @@ public class BossController : MonoBehaviour
                 _isMultishot = true;
                 StartCoroutine(MultiShot(_projectileSpawn.transform.rotation.eulerAngles.y, _multishotCount, _multishotSpread, _projectileSpawn.transform.position));
             }
+            else if(fireAction <= 0.85f)
+            {
+                _canFire = false;
+                _isTelegraphing = true;
+                _isLaser = true;
+                StartCoroutine(Laser());
+            }
         }
+    }
+
+    private IEnumerator Laser()
+    {
+        float elapsedTime = 0;
+        float duration = _telegraphDuration / 3;
+        _timeToNextMovement += duration;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            Debug.DrawRay(_turret.transform.position, transform.TransformDirection(Vector3.back) * 5, Color.red);
+            yield return new WaitForEndOfFrame();
+        }
+
+        _timeLastFired = Time.time;
+        if (_laserFire != null)
+        {
+            AudioHelper.PlayClip2D(_laserFire, 1f);
+        }
+
+        if (!_laserParticles.isPlaying)
+        {
+            _laserParticles.Play();
+        }
+
+
+
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(_turret.transform.position, transform.TransformDirection(Vector3.back), out hit, Mathf.Infinity, LayerMask.GetMask("Player")))
+        {
+            Debug.Log("hit object");
+            Debug.DrawRay(_turret.transform.position, transform.TransformDirection(Vector3.back) * hit.distance, Color.yellow);
+            IDamageable damageableObj = hit.transform.gameObject.GetComponent<IDamageable>();
+            if (damageableObj != null)
+            {
+                damageableObj.Damage(1);
+            }
+        }
+
+        _isLaser = false;
     }
 
     private IEnumerator MultiShot(float rotation, int numProjectiles, float spread, Vector3 position)
@@ -253,10 +324,7 @@ public class BossController : MonoBehaviour
 
         float angleOffset = spread / numProjectiles; // find the angle between each projectile
         float startRotation = rotation - (spread / 2);
-        //float spawnDistance = 3f;
-
-        //Vector3 spawnPos = new Vector3(_rb.transform.position.x, 0.5f, _rb.transform.position.z); // set the spawn pos to the correct height
-
+        
         for (float rot = startRotation; rot < startRotation + spread; rot += angleOffset)
         {
             GameObject projectile = Instantiate(_projectile, position, Quaternion.AngleAxis(rot, Vector3.up));

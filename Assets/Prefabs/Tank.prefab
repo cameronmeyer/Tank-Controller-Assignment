@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 231476671}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Turret Pivot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315720418}
   - component: {fileID: 315720419}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ChargeGravity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 712175028}
   - component: {fileID: 712175027}
   - component: {fileID: 712175026}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzzle Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5505,7 +5505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 813679375}
   - component: {fileID: 813679376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: L Tread Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5643,7 +5643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 954059850}
   - component: {fileID: 954059851}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: R Tread Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5780,7 +5780,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1016522161}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Projectile Spawn Location
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5813,7 +5813,7 @@ GameObject:
   - component: {fileID: 1758125157}
   - component: {fileID: 1758125159}
   - component: {fileID: 1758125158}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ChargeFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10618,7 +10618,7 @@ GameObject:
   - component: {fileID: 4953288104752432182}
   - component: {fileID: 4953288104752432176}
   - component: {fileID: 4953288104752432177}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tread_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10700,7 +10700,7 @@ GameObject:
   - component: {fileID: 4953288104976118949}
   - component: {fileID: 4953288104976118951}
   - component: {fileID: 4953288104976118948}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10781,7 +10781,7 @@ GameObject:
   - component: {fileID: 4953288105023766689}
   - component: {fileID: 4953288105023766691}
   - component: {fileID: 4953288105023766688}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10866,7 +10866,7 @@ GameObject:
   - component: {fileID: 4953288105116543784}
   - component: {fileID: 4953288105116543785}
   - component: {fileID: 1156230666}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10987,7 +10987,7 @@ GameObject:
   - component: {fileID: 4953288105683210901}
   - component: {fileID: 4953288105683210903}
   - component: {fileID: 4953288105683210900}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tread_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11067,7 +11067,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4953288106226916525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
